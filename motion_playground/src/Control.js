@@ -58,4 +58,15 @@ class Control extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default Control;
+=======
+const mapDispatchToProps = (dispatch) => ({
+  updateValues: (stiffness, damping) => {
+    dispatch(motionAction(stiffness, damping));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Control)
+//export default Control;
+>>>>>>> master
