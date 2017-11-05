@@ -29,21 +29,20 @@ class Control extends Component {
   newStiffnessValue = (event, value) => {
   	console.log("stiffness:", value);
   	this.setState({stiffness: value});
-  	this.valuesToStore();
+  	this.valuesToStore(value, null);
   };
 
   newDampingValue = (event, value) => {
   	console.log("damping:", value);
   	this.setState({damping: value});
-  	this.valuesToStore();
+  	this.valuesToStore(null, value);
   }
 
-  valuesToStore = () => {
-  	console.log(this.props);
-  	// this.props.updateValues(
-  	// 	this.state.stiffness, 
-  	// 	this.state.damping
-  	// );
+  valuesToStore = (stiffness = null, damping = null) => {
+  	this.props.updateValues(
+  		stiffness||this.state.stiffness, 
+  		damping||this.state.damping
+  	);
   }
 
   render() {
@@ -90,5 +89,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-//export default connect(null, mapDispatchToProps)(Control)
-export default Control;
+export default connect(null, mapDispatchToProps)(Control)
+//export default Control;

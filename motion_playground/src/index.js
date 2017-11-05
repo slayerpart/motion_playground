@@ -30,9 +30,6 @@ function makeStore(initialState: ReduxStateType) {
 
 const store = makeStore({});
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
