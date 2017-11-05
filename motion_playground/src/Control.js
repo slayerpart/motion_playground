@@ -16,8 +16,32 @@ const styles = {
 
 class Control extends Component {
 
+  state = {
+    stiffness: 1.0,
+    damping: 1.0,
+  };
+
   constructor() {
     super();
+  }
+
+  newStiffnessValue = (event, value) => {
+    console.log("stiffness:", value);
+    this.setState({stiffness: value});
+    this.valuesToStore(value, null);
+  };
+
+  newDampingValue = (event, value) => {
+    console.log("damping:", value);
+    this.setState({damping: value});
+    this.valuesToStore(null, value);
+  }
+
+  valuesToStore = (stiffness = null, damping = null) => {
+    this.props.updateValues(
+      stiffness||this.state.stiffness, 
+      damping||this.state.damping
+    );
   }
 
   render() {
@@ -48,8 +72,8 @@ class Control extends Component {
 	      />
     	</RadioButtonGroup>
       <div id="control-slider">
-        <Slider id='stiffness' defaultValue={1} />
-        <Slider id='damping' defaultValue={1} />
+        <Slider id='stiffness' defaultValue={1} onChange={this.newStiffnessValue}/>
+        <Slider id='damping' defaultValue={1} onChange={this.newDampingValue}/>
       </div>
 
 		<div id="presets">
@@ -59,6 +83,8 @@ class Control extends Component {
     )
   }
 }
+
+
 
 const mapDispatchToProps = (dispatch) => ({
   updateValues: (stiffness, damping) => {
