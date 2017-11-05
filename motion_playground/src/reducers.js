@@ -1,12 +1,17 @@
 import { combineReducers } from 'redux'
 
 import {
+  DFLT_STIFFINESS,
+  DFLT_DAMPING,
+} from './constants/motion.js'
+
+import {
   VALUES_CHANGED
 } from './constants/ActionTypes.js'
 
 const initialState = {
-  stiffness: 1.0,
-  damping: 1.0,
+  stiffness: DFLT_STIFFINESS,
+  damping: DFLT_DAMPING,
 }
 
 function newMotion(state = initialState, action) {
