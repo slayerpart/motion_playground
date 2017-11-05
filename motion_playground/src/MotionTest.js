@@ -43,8 +43,8 @@ class MotionTest extends Component {
   // to show how the slice transitions when y and height change
   changeValue() {
     if (this.state.slices.length) {
-      const r1 = Math.abs(Math.floor(Math.random() * 50));
-      const r2 = Math.abs(Math.floor(Math.random() * 40));
+      const r1 = Math.max(Math.abs(Math.floor(Math.random() * 50)), 10);
+      const r2 = Math.max(Math.abs(Math.floor(Math.random() * 40)), 10);
       const randomAngle = Math.abs(Math.floor(Math.random() * 360));
 
       this.setState({
@@ -79,7 +79,8 @@ class MotionTest extends Component {
               const { style } = slice;
               const springOptions = {
                 stiffness: this.props.stiffness,
-                damping: this.props.damping
+                damping: this.props.damping,
+                precision: this.props.precision
               };
 
               return {
@@ -126,9 +127,10 @@ class MotionTest extends Component {
   }
 }
 
-const mapStateToProps = ({ newMotion: { stiffness, damping }}) => ({
+const mapStateToProps = ({ newMotion: { stiffness, damping, precision }}) => ({
   stiffness,
-  damping
+  damping,
+  precision
 })
 
 export default connect(mapStateToProps)(MotionTest);

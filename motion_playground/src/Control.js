@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { motionAction } from './actions/MotionActions.js';
-import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Slider from 'material-ui-slider-label/Slider';
-import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import {
@@ -13,6 +11,9 @@ import {
   DFLT_STIFFINESS,
   MIN_DAMPING,
   MAX_DAMPING,
+  MIN_PRECISION,
+  MAX_PRECISION,
+  DFLT_PRECISION,
   DFLT_DAMPING,
 } from './constants/motion.js'
 
@@ -23,6 +24,9 @@ const styles = {
   },
   subheader: {
     textTransform: 'capitalize',
+  },
+  labelStyle: {
+    color: '#eee'
   },
   labelStyleOuter: {
     width: '30px',
@@ -42,68 +46,81 @@ const styles = {
     top: '3px',
     right: '0px',
     fontSize: '10px',
-    paddingLeft: '10px',
+    paddingLeft: '5px',
+    paddingTop: '5px',
+    fontWeight: 'bold',
   },
 };
 
 
 class Control extends Component {
-
   state = {
     stiffness: DFLT_STIFFINESS,
     damping: DFLT_DAMPING,
+    precision: DFLT_PRECISION,
   };
 
-  constructor() {
-    super();
-  }
-
   newStiffnessValue = (event, value) => {
-    console.log("stiffness:", value);
     this.setState({stiffness: value});
     this.valuesToStore(value, null);
   };
 
   newDampingValue = (event, value) => {
-    console.log("damping:", value);
     this.setState({damping: value});
     this.valuesToStore(null, value);
   }
 
-  valuesToStore = (stiffness = null, damping = null) => {
+  newPrecisionValue = (event, value) => {
+    this.setState({precision: value});
+    this.valuesToStore(null, value);
+  }
+
+  valuesToStore = (stiffness = null, damping = null, precision = null) => {
     this.props.updateValues(
       stiffness||this.state.stiffness,
-      damping||this.state.damping
+      damping||this.state.damping,
+      precision||this.state.precision
     );
   }
 
+  // TODO find presets for precision
   presetChecked = (event, value) => {
     let stiffness;
     let damping;
+    let precision;
     switch(value){
       case 'noWobble':
         stiffness = 170;
         damping = 26;
+        precision = 0;
         break;
       case 'gentle':
         stiffness = 120;
         damping = 14;
+        precision = 0;
         break;
       case 'wobbly':
         stiffness = 180;
         damping = 12;
+        precision = 0;
         break;
       case 'stiff':
         stiffness = 210;
         damping = 20;
+        precision = 0;
+        break;
+      case 'smooth':
+        stiffness = 170;
+        damping = 89;
+        precision = 0;
         break;
       default:
         //keep current values
         return;
     }
 
-    this.setState({stiffness: stiffness, damping: damping});
-    this.valuesToStore(stiffness, damping);
+    this.setState({stiffness: stiffness, damping: damping, precision: precision});
+    this.valuesToStore(stiffness, damping, precision);
   }
 
   render() {
@@ -115,23 +132,33 @@ class Control extends Component {
 	      <RadioButton
 	        value="noWobble"
 	        label="noWobble"
+          labelStyle={styles.labelStyle}
 	        style={styles.radioButton}
 	      />
 	      <RadioButton
 	        value="gentle"
 	        label="gentle"
+          labelStyle={styles.labelStyle}
 	        style={styles.radioButton}
 	      />
 	      <RadioButton
 	        value="wobbly"
 	        label="wobbly"
+          labelStyle={styles.labelStyle}
 	        style={styles.radioButton}
 	      />
 		  <RadioButton
 	        value="stiff"
 	        label="stiff"
+          labelStyle={styles.labelStyle}
 	        style={styles.radioButton}
 	      />
+        <RadioButton
+  	        value="smooth"
+  	        label="smooth"
+            labelStyle={styles.labelStyle}
+  	        style={styles.radioButton}
+  	      />
     	</RadioButtonGroup>
       <div id="control-slider">
         <p>Stiffiness</p>
@@ -166,6 +193,24 @@ class Control extends Component {
             <div style={styles.labelStyleOuter}>
               <div style={styles.labelStyleInner}>
                 {this.state.damping}
+              </div>
+            </div>
+          }
+        />
+        <p>Precision</p>
+        <Slider
+          id='precision'
+          className='slider'
+          min={MIN_PRECISION}
+          max={MAX_PRECISION}
+          defaultValue={DFLT_PRECISION}
+          value={this.state.precision}
+          onChange={this.newPrecisionValue}
+          step={1/10}
+          label={
+            <div style={styles.labelStyleOuter}>
+              <div style={styles.labelStyleInner}>
+                {this.state.precision}
               </div>
             </div>
           }
