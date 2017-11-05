@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {spring, TransitionMotion} from 'react-motion';
 import './MotionTest.css';
 
-const slice = {
+const initialSlice = {
   key: 'x',
   style: {
     y: 15,
@@ -14,7 +14,6 @@ const slice = {
 };
 
 class MotionTest extends Component {
-  // the constant, non-animated properties
   static defaultProps = {
     x: 45,
     width: 25,
@@ -23,7 +22,7 @@ class MotionTest extends Component {
   constructor() {
     super();
     this.state = {
-      slices: [slice],
+      slices: [initialSlice],
       intervalId: 0
     }
     this.changeValue = this.changeValue.bind(this);
@@ -39,23 +38,20 @@ class MotionTest extends Component {
     clearInterval(this.state.intervalId);
   }
 
-  // an instance method for click handling
-  // to show how the slice transitions when y and height change
   changeValue() {
     if (this.state.slices.length) {
-      const r1 = Math.max(Math.abs(Math.floor(Math.random() * 50)), 10);
-      const r2 = Math.max(Math.abs(Math.floor(Math.random() * 40)), 10);
-      const randomAngle = Math.abs(Math.floor(Math.random() * 360));
+      const randNum1 = Math.max(Math.abs(Math.floor(Math.random() * 50)), 10);
+      const randNum2 = Math.max(Math.abs(Math.floor(Math.random() * 40)), 10);
+      const randAngle = Math.abs(Math.floor(Math.random() * 360));
 
       this.setState({
-        slices: [Object.assign({}, slice, {
+        slices: [{ ...slice,
           style: {
-            y: (65 - r1) / 2,
-            height: r1,
-            width: r2,
-            angle: randomAngle
+            height: randNum1,
+            width: randNum2,
+            angle: randAngle
           },
-        })]
+        }]
       });
     }
   }
@@ -111,7 +107,7 @@ class MotionTest extends Component {
                     id="rect1"
                     key={key}
                     x={this.props.x}
-                    y={style.y}
+                    y={style.height / 2}
                     rx={2}
                     ry={2}
                     width={style.width}

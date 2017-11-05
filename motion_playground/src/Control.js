@@ -99,6 +99,11 @@ class Control extends Component {
         damping = 14;
         precision = 0;
         break;
+      case 'rush':
+        stiffness = 300;
+        damping = 13;
+        precision = 0.1;
+        break;
       case 'wobbly':
         stiffness = 180;
         damping = 12;
@@ -147,7 +152,13 @@ class Control extends Component {
           labelStyle={styles.labelStyle}
 	        style={styles.radioButton}
 	      />
-		  <RadioButton
+        <RadioButton
+	        value="rush"
+	        label="rush"
+          labelStyle={styles.labelStyle}
+	        style={styles.radioButton}
+	      />
+  		  <RadioButton
 	        value="stiff"
 	        label="stiff"
           labelStyle={styles.labelStyle}
