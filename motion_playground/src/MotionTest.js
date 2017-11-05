@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {spring, TransitionMotion} from 'react-motion';
+import './MotionTest.css';
 
 const slice = {
   key: 'x',
   style: {
     y: 15,
-    height: 70,
+    height: 40,
+    width: 30,
+    angle: 0
   },
 };
 
@@ -23,7 +27,6 @@ class MotionTest extends Component {
       intervalId: 0
     }
     this.changeValue = this.changeValue.bind(this);
-    this.exitOrReenter = this.exitOrReenter.bind(this);
   }
 
   componentDidMount() {
@@ -40,48 +43,21 @@ class MotionTest extends Component {
   // to show how the slice transitions when y and height change
   changeValue() {
     if (this.state.slices.length) {
-      const random = Math.floor(Math.random() * 70);
+      const r1 = Math.floor(Math.random() * 40);
+      const r2 = Math.floor(Math.random() * 30);
+      const randomAngle = Math.floor(Math.random() * 360);
+
       this.setState({
         slices: [Object.assign({}, slice, {
           style: {
-            y: (100 - random) / 2,
-            height: random,
+            y: (45 - r1) / 2,
+            height: r1,
+            width: r2,
+            angle: randomAngle
           },
         })]
       });
     }
-  }
-
-  // an instance method for click handling
-  // to simulate the slice being removed then re-added to the dataset
-  exitOrReenter() {
-    if (this.state.slices.length === 0) {
-      this.setState({
-        slices: [slice],
-      });
-    } else {
-      this.setState({
-        slices: [],
-      });
-    }
-  }
-
-  // content is essentially identical to defaultStyles
-  // but this handles the *re*entry of the slice (after it has exited)
-  willEnter() {
-    return {
-      y: 50,
-      height: 0,
-    };
-  }
-
-  // this is where we define how the slice exits
-  // note than unlike willEnter, you use spring() here!
-  willLeave() {
-    return {
-      y: spring(50),
-      height: spring(0)
-    };
   }
 
   render() {
@@ -93,22 +69,29 @@ class MotionTest extends Component {
             defaultStyles={[{
               key: slice.key,
               style: {
-                y: 50,
+                y: 30,
                 height: 0,
+                width: 0,
+                angle: 0
               },
             }]}
             styles={this.state.slices.map((slice) => {
               const { style } = slice;
+              const springOptions = {
+                stiffness: this.props.stiffness,
+                damping: this.props.damping
+              };
+
               return {
                 key: slice.key,
                 style: {
-                  y: spring(style.y),
-                  height: spring(style.height),
+                  y: spring(style.y, springOptions),
+                  height: spring(style.height, springOptions),
+                  width: spring(style.width, springOptions),
+                  angle: spring(style.angle, springOptions)
                 },
               };
             })}
-            willEnter={this.willEnter}
-            willLeave={this.willLeave}
           >
             {(slices) => {
               if (slices.length === 0) {
@@ -116,15 +99,24 @@ class MotionTest extends Component {
               }
               const { key, style } = slices[0];
               return (
-                <rect
-                  key={key}
-                  x={this.props.x}
-                  y={style.y}
-                  rx={2}
-                  ry={2}
-                  width={this.props.width}
-                  height={style.height}
-                />
+                <g>
+                  <defs>
+                    <linearGradient gradientTransform={`rotate(${style.angle})`} id="Gradient1">
+                      <stop class="stop1" offset="0%"/>
+                      <stop class="stop2" offset="100%"/>
+                    </linearGradient>
+                  </defs>,
+                  <rect
+                    id="rect1"
+                    key={key}
+                    x={this.props.x}
+                    y={style.y}
+                    rx={2}
+                    ry={2}
+                    width={style.width}
+                    height={style.height}
+                  />
+                </g>
               );
             }}
           </TransitionMotion>
@@ -134,4 +126,9 @@ class MotionTest extends Component {
   }
 }
 
-export default MotionTest;
+const mapStateToProps = ({ newMotion: { stiffness, damping }}) => ({
+  stiffness,
+  damping
+})
+
+export default connect(mapStateToProps)(MotionTest);

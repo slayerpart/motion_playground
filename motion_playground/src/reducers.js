@@ -12,12 +12,11 @@ const initialState = {
 function newMotion(state = initialState, action) {
   switch (action.type) {
     case VALUES_CHANGED:
-      return [
-          {
-            stiffness: action.stiffness,
-            damping: action.damping,
-          }
-      ]
+      return {
+        ...state,
+        stiffness: action.payload.stiffness,
+        damping: action.payload.damping,
+      }
     default:
       return state
   }
