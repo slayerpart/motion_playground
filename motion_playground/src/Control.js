@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { motionAction } from './actions/MotionActions.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Slider from 'material-ui/Slider';
+import Slider from 'material-ui-slider-label/Slider';
 import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -21,7 +21,31 @@ const styles = {
   radioButton: {
     marginBottom: 16,
   },
+  subheader: {
+    textTransform: 'capitalize',
+  },
+  labelStyleOuter: {
+    width: '30px',
+    height: '30px',
+    borderRadius: '50% 50% 50% 0',
+    background: 'rgb(0, 188, 212)',
+    position: 'absolute',
+    transform: 'rotate(-45deg)',
+    top: '-40px',
+    left: '-9px',
+  },
+  labelStyleInner: {
+    transform: 'rotate(45deg)',
+    color: 'white',
+    textAlign: 'center',
+    position: 'relative',
+    top: '3px',
+    right: '0px',
+    fontSize: '10px',
+    paddingLeft: '10px',
+  },
 };
+
 
 class Control extends Component {
 
@@ -110,21 +134,41 @@ class Control extends Component {
 	      />
     	</RadioButtonGroup>
       <div id="control-slider">
+        <p>Stiffiness</p>
         <Slider 
           id='stiffness' 
+          className='slider'
           min={MIN_STIFFINESS}
           max={MAX_STIFFINESS}
           defaultValue={DFLT_STIFFINESS} 
           value={this.state.stiffness}
           onChange={this.newStiffnessValue}
+          step={1}
+          label={
+            <div style={styles.labelStyleOuter}>
+              <div style={styles.labelStyleInner}>
+                {this.state.stiffness}
+              </div>
+            </div>
+          }
         />
+        <p>Damping</p>
         <Slider 
           id='damping' 
+          className='slider'
           min={MIN_DAMPING}
           max={MAX_DAMPING}
           defaultValue={DFLT_DAMPING} 
           value={this.state.damping}
           onChange={this.newDampingValue}
+          step={1}
+          label={
+            <div style={styles.labelStyleOuter}>
+              <div style={styles.labelStyleInner}>
+                {this.state.damping}
+              </div>
+            </div>
+          }
         />
       </div>
 
