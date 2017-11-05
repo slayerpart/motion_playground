@@ -7,6 +7,15 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
+import {
+  MIN_STIFFINESS,
+  MAX_STIFFINESS,
+  DFLT_STIFFINESS,
+  MIN_DAMPING,
+  MAX_DAMPING,
+  DFLT_DAMPING,
+} from './constants/motion.js'
+
 const styles = {
   margin: 12,
   radioButton: {
@@ -17,8 +26,8 @@ const styles = {
 class Control extends Component {
 
   state = {
-    stiffness: 1.0,
-    damping: 1.0,
+    stiffness: DFLT_STIFFINESS,
+    damping: DFLT_DAMPING,
   };
 
   constructor() {
@@ -44,12 +53,41 @@ class Control extends Component {
     );
   }
 
+  presetChecked = (event, value) => {
+    let stiffness;
+    let damping;
+    switch(value){
+      case 'noWobble':
+        stiffness = 170;
+        damping = 26;
+        break;
+      case 'gentle':
+        stiffness = 120;
+        damping = 14;
+        break;
+      case 'wobbly':
+        stiffness = 180;
+        damping = 12;
+        break;
+      case 'stiff':
+        stiffness = 210;
+        damping = 20;
+        break;
+      default:
+        //keep current values
+        return;
+    }
+
+    this.setState({stiffness: stiffness, damping: damping});
+    this.valuesToStore(stiffness, damping);
+  }
+
   render() {
     return (
    	<MuiThemeProvider>
     <div id="control">
       <h1 id="control-head">Control Area</h1>
-   		<RadioButtonGroup id="control-radio" name="presets" defaultSelected="not_light">
+   		<RadioButtonGroup id="control-radio" name="presets" defaultSelected="not_light" onChange={this.presetChecked}>
 	      <RadioButton
 	        value="noWobble"
 	        label="noWobble"
@@ -72,8 +110,22 @@ class Control extends Component {
 	      />
     	</RadioButtonGroup>
       <div id="control-slider">
-        <Slider id='stiffness' defaultValue={1} onChange={this.newStiffnessValue}/>
-        <Slider id='damping' defaultValue={1} onChange={this.newDampingValue}/>
+        <Slider 
+          id='stiffness' 
+          min={MIN_STIFFINESS}
+          max={MAX_STIFFINESS}
+          defaultValue={DFLT_STIFFINESS} 
+          value={this.state.stiffness}
+          onChange={this.newStiffnessValue}
+        />
+        <Slider 
+          id='damping' 
+          min={MIN_DAMPING}
+          max={MAX_DAMPING}
+          defaultValue={DFLT_DAMPING} 
+          value={this.state.damping}
+          onChange={this.newDampingValue}
+        />
       </div>
 
 		<div id="presets">
@@ -83,8 +135,6 @@ class Control extends Component {
     )
   }
 }
-
-
 
 const mapDispatchToProps = (dispatch) => ({
   updateValues: (stiffness, damping) => {
