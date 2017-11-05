@@ -5,6 +5,9 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
+import { connect } from 'react-redux';
+import { motionAction } from './actions/MotionActions.js';
+
 const styles = {
   margin: 12,
   radioButton: {
@@ -14,8 +17,33 @@ const styles = {
 
 class Control extends Component {
 
+  state = {
+  	stiffness: 1.0,
+  	damping: 1.0,
+  };
+
   constructor() {
     super();
+  }
+
+  newStiffnessValue = (event, value) => {
+  	console.log("stiffness:", value);
+  	this.setState({stiffness: value});
+  	this.valuesToStore();
+  };
+
+  newDampingValue = (event, value) => {
+  	console.log("damping:", value);
+  	this.setState({damping: value});
+  	this.valuesToStore();
+  }
+
+  valuesToStore = () => {
+  	console.log(this.props);
+  	// this.props.updateValues(
+  	// 	this.state.stiffness, 
+  	// 	this.state.damping
+  	// );
   }
 
   render() {
@@ -45,8 +73,8 @@ class Control extends Component {
 	        style={styles.radioButton}
 	      />
     	</RadioButtonGroup>
-    	<Slider id='stiffness' defaultValue={1} />
-    	<Slider id='damping' defaultValue={1} />
+    	<Slider id='stiffness' name='stiffness' defaultValue={1} onChange={this.newStiffnessValue}/>
+    	<Slider id='damping'  name='damping' defaultValue={1} onChange={this.newDampingValue}/>
 		<h1>Control Area</h1>
 		<div id="presets">
 		</div>
@@ -56,4 +84,11 @@ class Control extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  updateValues: (stiffness, damping) => {
+    dispatch(motionAction(stiffness, damping));
+  },
+});
+
+//export default connect(null, mapDispatchToProps)(Control)
 export default Control;

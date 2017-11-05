@@ -5,7 +5,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {
   compose,
-  applyMiddleware,
   createStore,
 } from 'redux';
 import { Provider } from 'react-redux';
