@@ -2,21 +2,20 @@ import { combineReducers } from 'redux'
 
 import {
   VALUES_CHANGED
-} from './actions/MotionActions.js'
+} from './constants/ActionTypes.js'
 
 const initialState = {
   stiffness: 1.0,
-  dampness: 1.0,
+  damping: 1.0,
 }
 
 function newMotion(state = initialState, action) {
   switch (action.type) {
     case VALUES_CHANGED:
       return [
-          ...state,
           {
             stiffness: action.stiffness,
-            dampness: action.dampness,
+            damping: action.damping,
           }
       ]
     default:

@@ -22,7 +22,6 @@ class Control extends Component {
     return (
    	<MuiThemeProvider>
     <div id="control">
-    	{/* <RaisedButton label="Primary" primary={true} style={styles} /> */}
       <h1 id="control-head">Control Area</h1>
    		<RadioButtonGroup id="control-radio" name="presets" defaultSelected="not_light">
 	      <RadioButton

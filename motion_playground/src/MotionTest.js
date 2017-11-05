@@ -20,11 +20,22 @@ class MotionTest extends Component {
     super();
     this.state = {
       slices: [slice],
+      intervalId: 0
     }
     this.changeValue = this.changeValue.bind(this);
     this.exitOrReenter = this.exitOrReenter.bind(this);
   }
-  
+
+  componentDidMount() {
+    this.setState({
+      intervalId: setInterval(this.changeValue, 2000)
+    })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
   // an instance method for click handling
   // to show how the slice transitions when y and height change
   changeValue() {
@@ -40,7 +51,7 @@ class MotionTest extends Component {
       });
     }
   }
-  
+
   // an instance method for click handling
   // to simulate the slice being removed then re-added to the dataset
   exitOrReenter() {
@@ -54,7 +65,7 @@ class MotionTest extends Component {
       });
     }
   }
-  
+
   // content is essentially identical to defaultStyles
   // but this handles the *re*entry of the slice (after it has exited)
   willEnter() {
@@ -63,7 +74,7 @@ class MotionTest extends Component {
       height: 0,
     };
   }
-  
+
   // this is where we define how the slice exits
   // note than unlike willEnter, you use spring() here!
   willLeave() {
@@ -76,52 +87,48 @@ class MotionTest extends Component {
   render() {
     return (
       <div id="motion">
-      <svg viewBox="0 0 100 100">
-        <TransitionMotion
-          // responsible for the animation on first load!
-          defaultStyles={[{
-            key: slice.key,
-            style: {
-              y: 50,
-              height: 0,
-            },
-          }]}
-          styles={this.state.slices.map((slice) => {
-            const { style } = slice;
-            return {
+        <svg viewBox="0 0 100 100">
+          <TransitionMotion
+            // responsible for the animation on first load!
+            defaultStyles={[{
               key: slice.key,
               style: {
-                y: spring(style.y),
-                height: spring(style.height),
+                y: 50,
+                height: 0,
               },
-            };
-          })}
-          willEnter={this.willEnter}
-          willLeave={this.willLeave}
-        >
-          {(slices) => {
-            if (slices.length === 0) {
-              return null;
-            }
-            const { key, style } = slices[0];
-            return (
-              <rect
-                key={key}
-                x={this.props.x}
-                y={style.y}
-                rx={2}
-                ry={2}
-                width={this.props.width}
-                height={style.height}
-              />
-            );
-          }}
-        </TransitionMotion>
-      </svg>
-      <div id="buttons">
-        <button onClick={this.exitOrReenter}>{`${this.state.slices.length ? 'Exit' : 'Enter'} rect`}</button>
-        <button onClick={this.changeValue}>Change value</button>
-      </div>
+            }]}
+            styles={this.state.slices.map((slice) => {
+              const { style } = slice;
+              return {
+                key: slice.key,
+                style: {
+                  y: spring(style.y),
+                  height: spring(style.height),
+                },
+              };
+            })}
+            willEnter={this.willEnter}
+            willLeave={this.willLeave}
+          >
+            {(slices) => {
+              if (slices.length === 0) {
+                return null;
+              }
+              const { key, style } = slices[0];
+              return (
+                <rect
+                  key={key}
+                  x={this.props.x}
+                  y={style.y}
+                  rx={2}
+                  ry={2}
+                  width={this.props.width}
+                  height={style.height}
+                />
+              );
+            }}
+          </TransitionMotion>
+        </svg>
       </div>
     )
   }
