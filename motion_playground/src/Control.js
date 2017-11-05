@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { motionAction } from './actions/MotionActions.js';
-import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Slider from 'material-ui-slider-label/Slider';
-import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import {
@@ -55,10 +53,6 @@ class Control extends Component {
     stiffness: DFLT_STIFFINESS,
     damping: DFLT_DAMPING,
   };
-
-  constructor() {
-    super();
-  }
 
   newStiffnessValue = (event, value) => {
     console.log("stiffness:", value);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import MotionTest from './MotionTest.js';
 import Control from './Control.js';
 import './App.css';

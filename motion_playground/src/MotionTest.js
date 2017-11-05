@@ -102,8 +102,8 @@ class MotionTest extends Component {
                 <g>
                   <defs>
                     <linearGradient gradientTransform={`rotate(${style.angle})`} id="Gradient1">
-                      <stop class="stop1" offset="0%"/>
-                      <stop class="stop2" offset="100%"/>
+                      <stop className="stop1" offset="0%"/>
+                      <stop className="stop2" offset="100%"/>
                     </linearGradient>
                   </defs>,
                   <rect
