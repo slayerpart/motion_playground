@@ -43,14 +43,14 @@ class MotionTest extends Component {
   // to show how the slice transitions when y and height change
   changeValue() {
     if (this.state.slices.length) {
-      const r1 = Math.abs(Math.floor(Math.random() * 40));
-      const r2 = Math.abs(Math.floor(Math.random() * 30));
+      const r1 = Math.abs(Math.floor(Math.random() * 50));
+      const r2 = Math.abs(Math.floor(Math.random() * 40));
       const randomAngle = Math.abs(Math.floor(Math.random() * 360));
 
       this.setState({
         slices: [Object.assign({}, slice, {
           style: {
-            y: (45 - r1) / 2,
+            y: (65 - r1) / 2,
             height: r1,
             width: r2,
             angle: randomAngle
@@ -102,8 +102,8 @@ class MotionTest extends Component {
                 <g>
                   <defs>
                     <linearGradient gradientTransform={`rotate(${style.angle})`} id="Gradient1">
-                      <stop class="stop1" offset="0%"/>
-                      <stop class="stop2" offset="100%"/>
+                      <stop className="stop1" offset="20%"/>
+                      <stop className="stop2" offset="80%"/>
                     </linearGradient>
                   </defs>,
                   <rect
@@ -115,9 +115,6 @@ class MotionTest extends Component {
                     ry={2}
                     width={style.width}
                     height={style.height}
-                    style={{
-                      transform: `rotate(${style.angle})`
-                    }}
                   />
                 </g>
               );
