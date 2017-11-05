@@ -42,7 +42,9 @@ const styles = {
     top: '3px',
     right: '0px',
     fontSize: '10px',
-    paddingLeft: '10px',
+    paddingLeft: '5px',
+    paddingTop: '5px',
+    fontWeight: 'bold',
   },
 };
 
@@ -72,7 +74,7 @@ class Control extends Component {
 
   valuesToStore = (stiffness = null, damping = null) => {
     this.props.updateValues(
-      stiffness||this.state.stiffness, 
+      stiffness||this.state.stiffness,
       damping||this.state.damping
     );
   }
@@ -135,12 +137,12 @@ class Control extends Component {
     	</RadioButtonGroup>
       <div id="control-slider">
         <p>Stiffiness</p>
-        <Slider 
-          id='stiffness' 
+        <Slider
+          id='stiffness'
           className='slider'
           min={MIN_STIFFINESS}
           max={MAX_STIFFINESS}
-          defaultValue={DFLT_STIFFINESS} 
+          defaultValue={DFLT_STIFFINESS}
           value={this.state.stiffness}
           onChange={this.newStiffnessValue}
           step={1}
@@ -153,12 +155,12 @@ class Control extends Component {
           }
         />
         <p>Damping</p>
-        <Slider 
-          id='damping' 
+        <Slider
+          id='damping'
           className='slider'
           min={MIN_DAMPING}
           max={MAX_DAMPING}
-          defaultValue={DFLT_DAMPING} 
+          defaultValue={DFLT_DAMPING}
           value={this.state.damping}
           onChange={this.newDampingValue}
           step={1}

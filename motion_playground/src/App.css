@@ -11,6 +11,8 @@
 
 #control-head {
   font-size: larger;
+  border-bottom: 1px solid black;
+  padding-bottom: 1rem;
 }
 
 #control-radio {
@@ -23,6 +25,10 @@
 
 #control-slider {
   height: 30%;
+}
+
+#control-slider p {
+  text-align: left;
 }
 
 .slider {
