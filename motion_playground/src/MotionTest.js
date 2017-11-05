@@ -45,7 +45,7 @@ class MotionTest extends Component {
       const randAngle = Math.abs(Math.floor(Math.random() * 360));
 
       this.setState({
-        slices: [{ ...slice,
+        slices: [{ ...initialSlice,
           style: {
             height: randNum1,
             width: randNum2,
@@ -63,7 +63,7 @@ class MotionTest extends Component {
           <TransitionMotion
             // responsible for the animation on first load!
             defaultStyles={[{
-              key: slice.key,
+              key: initialSlice.key,
               style: {
                 y: 30,
                 height: 0,
