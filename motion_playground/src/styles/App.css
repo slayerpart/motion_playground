@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+#control {
+  float: right;
+  width: 15%;
+  padding: 1rem;
+  height: 100%;
+}
+
+#control-head {
+  font-size: larger;
+}
+
+#control-radio {
+  height: 70%;
+}
+
+#control-radio {
+  height: 70%;
+}
+
+#control-slider {
+  height: 30%;
+}
+
+#motion {
+  float: left;
+  width: 70%;
+  padding: 1rem;
+  height: 100%;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

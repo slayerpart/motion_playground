@@ -22,8 +22,9 @@ class Control extends Component {
     return (
    	<MuiThemeProvider>
     <div id="control">
-    	<RaisedButton label="Primary" primary={true} style={styles} />
-   		<RadioButtonGroup name="presets" defaultSelected="not_light">
+    	{/* <RaisedButton label="Primary" primary={true} style={styles} /> */}
+      <h1 id="control-head">Control Area</h1>
+   		<RadioButtonGroup id="control-radio" name="presets" defaultSelected="not_light">
 	      <RadioButton
 	        value="noWobble"
 	        label="noWobble"
@@ -45,9 +46,11 @@ class Control extends Component {
 	        style={styles.radioButton}
 	      />
     	</RadioButtonGroup>
-    	<Slider id='stiffness' defaultValue={1} />
-    	<Slider id='damping' defaultValue={1} />
-		<h1>Control Area</h1>
+      <div id="control-slider">
+        <Slider id='stiffness' defaultValue={1} />
+        <Slider id='damping' defaultValue={1} />
+      </div>
+
 		<div id="presets">
 		</div>
    	</div>
