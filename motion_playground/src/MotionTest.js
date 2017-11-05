@@ -9,7 +9,7 @@ const slice = {
     y: 15,
     height: 40,
     width: 30,
-    angle: 0
+    angle: 0,
   },
 };
 
@@ -43,9 +43,9 @@ class MotionTest extends Component {
   // to show how the slice transitions when y and height change
   changeValue() {
     if (this.state.slices.length) {
-      const r1 = Math.floor(Math.random() * 40);
-      const r2 = Math.floor(Math.random() * 30);
-      const randomAngle = Math.floor(Math.random() * 360);
+      const r1 = Math.abs(Math.floor(Math.random() * 40));
+      const r2 = Math.abs(Math.floor(Math.random() * 30));
+      const randomAngle = Math.abs(Math.floor(Math.random() * 360));
 
       this.setState({
         slices: [Object.assign({}, slice, {
@@ -88,7 +88,7 @@ class MotionTest extends Component {
                   y: spring(style.y, springOptions),
                   height: spring(style.height, springOptions),
                   width: spring(style.width, springOptions),
-                  angle: spring(style.angle, springOptions)
+                  angle: spring(style.angle, springOptions),
                 },
               };
             })}
@@ -115,6 +115,9 @@ class MotionTest extends Component {
                     ry={2}
                     width={style.width}
                     height={style.height}
+                    style={{
+                      transform: `rotate(${style.angle})`
+                    }}
                   />
                 </g>
               );

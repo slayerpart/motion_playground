@@ -17,7 +17,7 @@ import {
 } from './constants/motion.js'
 
 const styles = {
-  margin: 12,
+  margin: 20,
   radioButton: {
     marginBottom: 16,
   },
@@ -48,7 +48,7 @@ class Control extends Component {
 
   valuesToStore = (stiffness = null, damping = null) => {
     this.props.updateValues(
-      stiffness||this.state.stiffness, 
+      stiffness||this.state.stiffness,
       damping||this.state.damping
     );
   }
@@ -110,19 +110,19 @@ class Control extends Component {
 	      />
     	</RadioButtonGroup>
       <div id="control-slider">
-        <Slider 
-          id='stiffness' 
+        <Slider
+          id='stiffness'
           min={MIN_STIFFINESS}
           max={MAX_STIFFINESS}
-          defaultValue={DFLT_STIFFINESS} 
+          defaultValue={DFLT_STIFFINESS}
           value={this.state.stiffness}
           onChange={this.newStiffnessValue}
         />
-        <Slider 
-          id='damping' 
+        <Slider
+          id='damping'
           min={MIN_DAMPING}
           max={MAX_DAMPING}
-          defaultValue={DFLT_DAMPING} 
+          defaultValue={DFLT_DAMPING}
           value={this.state.damping}
           onChange={this.newDampingValue}
         />
