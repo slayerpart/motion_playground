@@ -2,11 +2,31 @@
   text-align: center;
 }
 
+.App-heading {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  margin: 30px 0;
+  font: bold 80px arial, sans-serif;
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 0px 1px rgba(255,255,255,0.4);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+
 #control {
   float: right;
   width: 15%;
-  padding: 1rem;
+  padding: 2rem;
+  margin: 1rem;
+  margin-top: 30px;
   height: 100%;
+  background-color: rgba(180,180,180,0.1);
+  border-radius: 10px;
 }
 
 #control-head {
@@ -38,6 +58,7 @@
 #motion {
   float: left;
   width: 70%;
+  margin-top: 100px;
   padding: 1rem;
   height: 100%;
 }

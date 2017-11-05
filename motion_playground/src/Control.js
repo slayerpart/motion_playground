@@ -17,7 +17,7 @@ import {
 } from './constants/motion.js'
 
 const styles = {
-  margin: 12,
+  margin: 20,
   radioButton: {
     marginBottom: 16,
   },

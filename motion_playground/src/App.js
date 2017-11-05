@@ -8,6 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="App-heading">Motion Playground</div>
         <Control id="control-container"></Control>
         <MotionTest id="motion-container"></MotionTest>
       </div>
