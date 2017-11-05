@@ -11,6 +11,9 @@ import {
   DFLT_STIFFINESS,
   MIN_DAMPING,
   MAX_DAMPING,
+  MIN_PRECISION,
+  MAX_PRECISION,
+  DFLT_PRECISION,
   DFLT_DAMPING,
 } from './constants/motion.js'
 
@@ -52,6 +55,7 @@ class Control extends Component {
   state = {
     stiffness: DFLT_STIFFINESS,
     damping: DFLT_DAMPING,
+    precision: DFLT_PRECISION,
   };
 
   newStiffnessValue = (event, value) => {
@@ -66,16 +70,25 @@ class Control extends Component {
     this.valuesToStore(null, value);
   }
 
-  valuesToStore = (stiffness = null, damping = null) => {
+  newPrecisionValue = (event, value) => {
+    console.log("precision:", value);
+    this.setState({precision: value});
+    this.valuesToStore(null, value);
+  }
+
+  valuesToStore = (stiffness = null, damping = null, precision = null) => {
     this.props.updateValues(
       stiffness||this.state.stiffness,
-      damping||this.state.damping
+      damping||this.state.damping,
+      precision||this.state.precision
     );
   }
 
+  // TODO find presets for precision
   presetChecked = (event, value) => {
     let stiffness;
     let damping;
+    let precision;
     switch(value){
       case 'noWobble':
         stiffness = 170;
@@ -98,8 +111,8 @@ class Control extends Component {
         return;
     }
 
-    this.setState({stiffness: stiffness, damping: damping});
-    this.valuesToStore(stiffness, damping);
+    this.setState({stiffness: stiffness, damping: damping, precision: precision});
+    this.valuesToStore(stiffness, damping, precision);
   }
 
   render() {
@@ -162,6 +175,24 @@ class Control extends Component {
             <div style={styles.labelStyleOuter}>
               <div style={styles.labelStyleInner}>
                 {this.state.damping}
+              </div>
+            </div>
+          }
+        />
+        <p>Precision</p>
+        <Slider
+          id='precision'
+          className='slider'
+          min={MIN_PRECISION}
+          max={MAX_PRECISION}
+          defaultValue={DFLT_PRECISION}
+          value={this.state.precision}
+          onChange={this.newPrecisionValue}
+          step={1/10}
+          label={
+            <div style={styles.labelStyleOuter}>
+              <div style={styles.labelStyleInner}>
+                {this.state.precision}
               </div>
             </div>
           }

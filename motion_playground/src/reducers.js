@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import {
   DFLT_STIFFINESS,
   DFLT_DAMPING,
+  DFLT_PRECISION,
 } from './constants/motion.js'
 
 import {
@@ -12,6 +13,7 @@ import {
 const initialState = {
   stiffness: DFLT_STIFFINESS,
   damping: DFLT_DAMPING,
+  precision: DFLT_PRECISION,
 }
 
 function newMotion(state = initialState, action) {
@@ -21,6 +23,7 @@ function newMotion(state = initialState, action) {
         ...state,
         stiffness: action.payload.stiffness,
         damping: action.payload.damping,
+        precision: action.payload.precision,
       }
     default:
       return state

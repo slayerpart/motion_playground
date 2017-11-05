@@ -79,7 +79,8 @@ class MotionTest extends Component {
               const { style } = slice;
               const springOptions = {
                 stiffness: this.props.stiffness,
-                damping: this.props.damping
+                damping: this.props.damping,
+                precision: this.props.precision
               };
 
               return {
@@ -129,9 +130,10 @@ class MotionTest extends Component {
   }
 }
 
-const mapStateToProps = ({ newMotion: { stiffness, damping }}) => ({
+const mapStateToProps = ({ newMotion: { stiffness, damping, precision }}) => ({
   stiffness,
-  damping
+  damping,
+  precision
 })
 
 export default connect(mapStateToProps)(MotionTest);
