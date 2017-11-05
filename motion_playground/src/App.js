@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import MotionTest from '../MotionTest.js';
+import logo from './logo.svg';
+import MotionTest from './MotionTest.js';
 import Control from './Control.js';
-import '../styles/App.css';
+import './App.css';
 
 class App extends Component {
   render() {

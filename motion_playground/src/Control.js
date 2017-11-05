@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { motionAction } from './actions/MotionActions.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Slider from 'material-ui/Slider';
@@ -58,9 +60,6 @@ class Control extends Component {
   }
 }
 
-<<<<<<< HEAD
-export default Control;
-=======
 const mapDispatchToProps = (dispatch) => ({
   updateValues: (stiffness, damping) => {
     dispatch(motionAction(stiffness, damping));
@@ -68,5 +67,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(Control)
-//export default Control;
->>>>>>> master
