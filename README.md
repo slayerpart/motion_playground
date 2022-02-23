@@ -2,7 +2,7 @@
 
 This project aimed to provide an interface to play around with the **stiffness**, **damping** and **precision** properties which control animations in `react-motion`
 
-![Screenshot](docs/screengrab.png)
+![Screenshot](docs/screencapture.gif)
 
 ## Available Scripts
 
