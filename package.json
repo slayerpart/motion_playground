@@ -3,5 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "material-ui": "^0.19.4",
+    "material-ui-slider-label": "https://github.com/tariqwest/material-ui-slider-label.git",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-motion": "^0.5.2",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
